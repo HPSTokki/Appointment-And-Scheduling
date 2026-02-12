@@ -1,6 +1,6 @@
 from sqlmodel import select, Session
 from src.models.appointment_model import Client
-from src.dto.appointment_dto import InsertClient, ResponseClient
+from src.dto.appointment_dto import InsertClient
 
 class ClientService():
     def __init__(self, session: Session):

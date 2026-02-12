@@ -46,6 +46,9 @@ class ResponsePet(BaseModel):
     sex: str
     created_at: datetime
 
+class ListResponsePet(BaseModel):
+    pets: list[ResponsePet]
+
 class InsertAppointment(BaseModel):
     pet_id: int
     client_id: int

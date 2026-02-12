@@ -1,10 +1,9 @@
-from src.services.client_service import ClientService
 from src.dto.appointment_dto import ListResponseClient, ResponseClient, InsertClient
-from src.engine import SessionDep
+from src.services.client_service import ClientService
 from fastapi import HTTPException, APIRouter
+from src.engine import SessionDep
 
 router = APIRouter(prefix="/client", tags=["Client"])
-
 
 @router.post("/", response_model=ResponseClient)
 def create_client(session: SessionDep, client_data: InsertClient):
