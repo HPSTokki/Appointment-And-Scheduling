@@ -1,5 +1,6 @@
 from sqlmodel import SQLModel, Session, create_engine
 from typing import Annotated, Generator
+from fastapi import Depends
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -23,3 +24,5 @@ engine = create_engine(supabase_url, echo=True)
 def get_session() -> Generator[SQLModel, None, None]:
     with Session(engine) as session:
         yield session
+
+SessionDep = Annotated[Session, Depends(get_session)]

@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from datetime import datetime
+from src.models.appointment_model import Client
 
 class InsertClient(BaseModel):
     full_name: str
@@ -19,6 +20,9 @@ class ResponseClient(BaseModel):
     address: str
     is_new_client: bool
     created_at: datetime
+
+class ListResponseClient(BaseModel):
+    clients: list[ResponseClient]
 
 class InsertPet(BaseModel):
     client_id: int
