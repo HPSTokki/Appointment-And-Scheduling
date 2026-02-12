@@ -1,0 +1,15 @@
+# Virtual Environment
+
+.venv
+
+# Alembic Migrations
+
+alembic/versions
+
+# Cache Files
+
+__pycache__
+
+# Environment Variables
+
+.env
