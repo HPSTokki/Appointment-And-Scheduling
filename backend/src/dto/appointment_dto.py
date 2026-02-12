@@ -56,6 +56,7 @@ class InsertAppointment(BaseModel):
     visit_type_code: str
     chief_complaint: str
     booking_source: str
+    status: str
 
 class ResponseAppointment(BaseModel):
     pet_id: int
@@ -76,6 +77,9 @@ class UpdateAppointment(BaseModel):
     visit_type_code: str | None = None
     chief_complaint: str | None = None
     status: str | None = None
+
+class ListResponseAppointment(BaseModel):
+    appointments: list[ResponseAppointment]
 
 class NewClientBooking(BaseModel):
     client: InsertClient
