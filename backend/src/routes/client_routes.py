@@ -19,6 +19,16 @@ def get_all_client(session: SessionDep):
         "clients": clients
     }
 
+@router.get("/search-client", response_model=ListResponseClient)
+def get_clients_by_name(session: SessionDep, search_term: str):
+    service = ClientService(session)
+    clients = service.get_clients_by_name(search_term)
+    if not clients:
+        raise HTTPException(status_code=404, detail=f"No Clients Found with name: {search_term}")
+    return {
+        "clients": clients
+    }
+
 @router.get("/{client_id}", response_model=ResponseClient)
 def get_one_client(session: SessionDep, client_id: int):
     service = ClientService(session)
@@ -34,13 +44,3 @@ def update_client(session: SessionDep, client_id: int, update_client_data: Updat
     if not client:
         raise HTTPException(status_code=404, detail="Update Failed")
     return client
-
-@router.get("/search-client/", response_model=ListResponseClient)
-def get_clients_by_name(session: SessionDep, search_term: str):
-    service = ClientService(session)
-    clients = service.get_clients_by_name(search_term)
-    if not clients:
-        raise HTTPException(status_code=404, detail=f"No Clients Found with name: {search_term}")
-    return {
-        "clients": clients
-    }

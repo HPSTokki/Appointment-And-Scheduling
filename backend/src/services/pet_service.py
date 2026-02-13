@@ -36,5 +36,12 @@ class PetService():
         self.session.refresh(pet)
 
         return pet
+    
+    def get_pets_by_name(self, search_term: str) -> list[Pet]:
+        stmt = select(Pet).where(
+            Pet.name.ilike(f"%{search_term}%")
+        )
+
+        return self.session.exec(stmt).all()
 
 
