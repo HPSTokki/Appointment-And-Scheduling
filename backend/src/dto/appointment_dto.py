@@ -54,6 +54,10 @@ class ResponsePet(BaseModel):
     sex: str
     created_at: datetime
 
+class UpdatePet(BaseModel):
+    is_spayed_neutered: bool | None = None
+    weight_kg: float | None = None
+
 class ListResponsePet(BaseModel):
     pets: list[ResponsePet]
 

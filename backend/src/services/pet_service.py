@@ -1,6 +1,6 @@
 from sqlmodel import select, Session
 from src.models.appointment_model import Pet
-from src.dto.appointment_dto import InsertPet
+from src.dto.appointment_dto import InsertPet, UpdatePet
 
 class PetService():
     def __init__(self, session: Session):
@@ -20,3 +20,21 @@ class PetService():
     def get_all_pet(self) -> list[Pet]:
         stmt = select(Pet)
         return self.session.exec(stmt).all()
+
+    def update_pet(self, pet_id: int, update_pet_data: UpdatePet) -> Pet:
+        pet = self.session.get(Pet, pet_id)
+        
+        if not pet:
+            return None
+
+        updated_pet_data = update_pet_data.model_dump(exclude_unset=True)
+
+        for key, value in updated_pet_data.items():
+            setattr(pet, key, value)
+
+        self.session.commit()
+        self.session.refresh(pet)
+
+        return pet
+
+

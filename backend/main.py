@@ -1,11 +1,9 @@
 import uvicorn
 
 if __name__ == "__main__":
-    config = uvicorn.Config(
+    uvicorn.run(
         "src.main:app",
         port=8000,
-        log_level="info",
+        log_level=True,
         reload=True
     )
-    server = uvicorn.Server(config)
-    server.run()
