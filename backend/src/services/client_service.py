@@ -37,5 +37,12 @@ class ClientService():
 
         return client 
 
+    # ilike might not appear in intellisense but it does work
+    def get_clients_by_name(self, search_term: str) -> list[Client]:
+        stmt = select(Client).where(
+            Client.full_name.ilike(f"%{search_term}%")
+        )
+        return self.session.exec(stmt).all()
+
     
     
