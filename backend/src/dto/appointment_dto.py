@@ -21,6 +21,14 @@ class ResponseClient(BaseModel):
     is_new_client: bool
     created_at: datetime
 
+class UpdateClient(BaseModel):
+    mobile_no: str | None = None
+    tel_no: str | None = None
+    preferred_contact_method: str = "Mobile Number"
+    email: str | None = None
+    address: str | None = None
+    is_new_client: bool | None = None
+
 class ListResponseClient(BaseModel):
     clients: list[ResponseClient]
 

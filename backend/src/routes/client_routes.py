@@ -1,4 +1,4 @@
-from src.dto.appointment_dto import ListResponseClient, ResponseClient, InsertClient
+from src.dto.appointment_dto import ListResponseClient, ResponseClient, InsertClient, UpdateClient
 from src.services.client_service import ClientService
 from fastapi import HTTPException, APIRouter
 from src.engine import SessionDep
@@ -25,4 +25,12 @@ def get_one_client(session: SessionDep, client_id: int):
     client = service.get_one_client(client_id)
     if not client:
         raise HTTPException(status_code=404, detail="Client not found!")
+    return client
+
+@router.put("/{client_id}", response_model=ResponseClient)
+def update_client(session: SessionDep, client_id: int, update_client_data: UpdateClient):
+    service = ClientService(session)
+    client = service.update_client(client_id, update_client_data)
+    if not client:
+        raise HTTPException(status_code=404, detail="Update Failed")
     return client
