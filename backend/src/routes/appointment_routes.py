@@ -28,6 +28,14 @@ def get_appointments_by_name(session: SessionDep, search_term: str):
         "appointments": appointments
     }
 
+@router.get("/status", response_model=ListResponseAppointment)
+def filter_appointments_by_status(session: SessionDep, filter_term: str):
+    service = AppointmentService(session)
+    appointments = service.filter_appointments_by_status(filter_term)
+    return {
+        "appointments": appointments
+    }
+
 @router.get("/date/{target_date}", response_model=ListResponseAppointment)
 def get_appointments_by_date(session: SessionDep, target_date: date):
     service = AppointmentService(session)

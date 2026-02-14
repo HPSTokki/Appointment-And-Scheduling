@@ -119,3 +119,23 @@ class AppointmentService():
             appointments.append(appointment_dict)
 
         return appointments
+    
+    def filter_appointments_by_status(self, filter_term: str) -> list[dict]:
+        stmt = select(Appointment, Pet.name, Client.full_name).join(
+            Pet, Appointment.pet_id == Pet.pet_id
+        ).join(
+            Client, Appointment.client_id == Client.client_id
+        ).where(
+            Appointment.status.ilike(f"%{filter_term}%")
+        )
+
+        results = self.session.exec(stmt).all()
+
+        appointments = []
+        for appointment, client_name, pet_name in results:
+            appointment_dict = appointment.model_dump()
+            appointment_dict["pet_name"] = pet_name
+            appointment_dict["client_name"] = client_name
+            appointments.append(appointment_dict)
+
+        return appointments
