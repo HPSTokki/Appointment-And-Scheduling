@@ -132,7 +132,7 @@ class AppointmentService():
         results = self.session.exec(stmt).all()
 
         appointments = []
-        for appointment, client_name, pet_name in results:
+        for appointment, pet_name, client_name  in results:
             appointment_dict = appointment.model_dump()
             appointment_dict["pet_name"] = pet_name
             appointment_dict["client_name"] = client_name
