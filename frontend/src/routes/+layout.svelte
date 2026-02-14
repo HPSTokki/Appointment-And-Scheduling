@@ -1,9 +1,17 @@
 <script lang="ts">
 	import './layout.css';
-	import favicon from '$lib/assets/favicon.svg';
+	import NavBar from '$lib/components/NavBar.svelte';
+	import Header from '$lib/components/Header.svelte';
 
 	let { children } = $props();
 </script>
 
-<svelte:head><link rel="icon" href={favicon} /></svelte:head>
-{@render children()}
+<div class="flex h-screen w-screen overflow-hidden">
+	<NavBar />
+	<div class="flex flex-1 flex-col">
+		<Header />
+		<main class="flex-1 overflow-y-auto">
+			{@render children()}
+		</main>
+	</div>
+</div>
