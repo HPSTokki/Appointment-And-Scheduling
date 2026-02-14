@@ -28,12 +28,6 @@ def get_appointments_by_name(session: SessionDep, search_term: str):
         "appointments": appointments
     }
 
-@router.get("/{appointment_id}", response_model=ResponseAppointment)
-def get_one_appointment(session: SessionDep, appointment_id: int):
-    service = AppointmentService(session)
-    appointment = service.get_one_appointment(appointment_id)
-    return appointment
-
 @router.get("/date/{target_date}", response_model=ListResponseAppointment)
 def get_appointments_by_date(session: SessionDep, target_date: date):
     service = AppointmentService(session)
@@ -41,6 +35,12 @@ def get_appointments_by_date(session: SessionDep, target_date: date):
     return {
         "appointments": appointments
     }
+
+@router.get("/{appointment_id}", response_model=ResponseAppointment)
+def get_one_appointment(session: SessionDep, appointment_id: int):
+    service = AppointmentService(session)
+    appointment = service.get_one_appointment(appointment_id)
+    return appointment
 
 @router.put("/update/{appointment_id}", response_model=ResponseAppointment)
 def update_appointment(session: SessionDep, appointment_id: int, update_appointment_data: UpdateAppointment):

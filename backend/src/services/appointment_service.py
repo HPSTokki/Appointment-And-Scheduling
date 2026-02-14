@@ -14,12 +14,12 @@ class AppointmentService():
         self.session.refresh(appointment)
         return appointment
     
-    def get_one_appointment(self, appointment_id: int) -> Appointment:
+    def get_one_appointment(self, appointment_id: int) -> dict:
 
         stmt = select(Appointment, Pet.name, Client.full_name).join(
             Pet, Appointment.pet_id == Pet.pet_id
         ).join(
-            Client, Appointment.pet_id == Client.client_id
+            Client, Appointment.client_id == Client.client_id
         ).where(
             Appointment.appointment_id == appointment_id
         )
@@ -37,7 +37,7 @@ class AppointmentService():
 
         return appointment_dict
     
-    def get_all_appointment(self) -> list[Appointment]: # TODO Change this to a dict also
+    def get_all_appointment(self) -> list[dict]:
         stmt = select(Appointment, Pet.name, Client.full_name).join(
             Pet, Appointment.pet_id == Pet.pet_id
         ).join(
@@ -56,7 +56,7 @@ class AppointmentService():
 
         return appointments
     
-    def get_appointments_by_date(self, target_date: date) -> list[Appointment]: # TODO Change this to a dict
+    def get_appointments_by_date(self, target_date: date) -> list[dict]:
         start_of_day = datetime.combine(target_date, datetime.min.time())
         end_of_day = datetime.combine(target_date, datetime.max.time())
 
@@ -80,7 +80,7 @@ class AppointmentService():
 
         return appointments
 
-    def update_appointment(self, appointment_id: int, update_appointment_data: UpdateAppointment) -> Appointment:
+    def update_appointment(self, appointment_id: int, update_appointment_data: UpdateAppointment) -> dict | None:
         appointment = self.session.get(Appointment, appointment_id)
 
         if not appointment:
