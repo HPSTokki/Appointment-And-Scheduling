@@ -20,6 +20,14 @@ def get_all_appointment(session: SessionDep):
         "appointments": appointments
     }
 
+@router.get("/search-appointment", response_model=ListResponseAppointment)
+def get_appointments_by_name(session: SessionDep, search_term: str):
+    service = AppointmentService(session)
+    appointments = service.get_appointments_by_name(search_term)
+    return {
+        "appointments": appointments
+    }
+
 @router.get("/{appointment_id}", response_model=ResponseAppointment)
 def get_one_appointment(session: SessionDep, appointment_id: int):
     service = AppointmentService(session)

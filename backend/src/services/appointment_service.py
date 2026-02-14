@@ -37,7 +37,7 @@ class AppointmentService():
 
         return appointment_dict
     
-    def get_all_appointment(self) -> list[Appointment]:
+    def get_all_appointment(self) -> list[Appointment]: # TODO Change this to a dict also
         stmt = select(Appointment, Pet.name, Client.full_name).join(
             Pet, Appointment.pet_id == Pet.pet_id
         ).join(
@@ -56,7 +56,7 @@ class AppointmentService():
 
         return appointments
     
-    def get_appointments_by_date(self, target_date: date) -> list[Appointment]:
+    def get_appointments_by_date(self, target_date: date) -> list[Appointment]: # TODO Change this to a dict
         start_of_day = datetime.combine(target_date, datetime.min.time())
         end_of_day = datetime.combine(target_date, datetime.max.time())
 
@@ -102,3 +102,20 @@ class AppointmentService():
         appointment_dict["client_name"] = client.full_name if client else None
 
         return appointment_dict
+
+    def get_appointments_by_name(self, search_term: str) -> list[dict]:
+        stmt = select(Appointment, Client.full_name).join(
+            Client, Appointment.client_id == Client.client_id
+        ).where(
+            Client.full_name.ilike(f"%{search_term}%")
+        )
+
+        results = self.session.exec(stmt).all()
+
+        appointments = []
+        for appointment, client_name in results:
+            appointment_dict = appointment.model_dump()
+            appointment_dict["client_name"] = client_name
+            appointments.append(appointment_dict)
+
+        return appointments
