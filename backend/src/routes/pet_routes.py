@@ -29,10 +29,18 @@ def get_pets_by_name(session: SessionDep, search_term: str):
         "pets": pets
     }
 
+@router.get("/client/{client_id}", response_model=ListResponsePet)
+def get_pets_by_client_id(session: SessionDep, client_id: int):
+    service = PetService(session)
+    pets = service.get_pets_by_client_id(client_id)
+    return {
+        "pets": pets
+    }
+
 @router.get("/{pet_id}", response_model=ResponsePet)
 def get_one_pet(session: SessionDep, pet_id: int):
-    service = PetService()
-    pet = service.get_one_pet()
+    service = PetService(session)
+    pet = service.get_one_pet(pet_id)
     if not pet:
         raise HTTPException(status=404, detail="Pet Not Found")
     return pet

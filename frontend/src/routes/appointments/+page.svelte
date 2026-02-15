@@ -81,8 +81,8 @@
 			{#if totalCount === 0}
 				<p class="text-lg font-medium text-slate-900">No Appointments for Today!</p>
 			{:else}
-				<p class="text-lg font-medium text-slate-900">Total Appointments:</p>
-				<p class="text-lg font-medium text-slate-900">{totalCount} Appointments</p>
+				<p class="text-base font-semibold text-slate-900">Total Appointments:</p>
+				<p class="text-base font-medium text-slate-900">{totalCount} Appointments</p>
 			{/if}
 		</div>
 	</div>
@@ -125,6 +125,9 @@
 						Reason
 					</th>
 					<th class="px-4 py-3 text-left text-sm font-medium tracking-wider text-gray-700">
+						Source
+					</th>
+					<th class="px-4 py-3 text-left text-sm font-medium tracking-wider text-gray-700">
 						Status
 					</th>
 					<th class="px-4 py-3 text-left text-sm font-medium tracking-wider text-gray-700">
@@ -135,7 +138,9 @@
 			<tbody class="divide-y divide-green-800">
 				{#if appointments.length === 0}
 					<tr>
-						<td colspan="6" class="px-4 py-8 text-center text-gray-700"> No Appointments Found </td>
+						<td colspan="7" class="px-4 py-6 text-center text-gray-700">
+							No Appointments Found
+						</td>
 					</tr>
 				{:else}
 					{#each appointments as appointment}
@@ -173,6 +178,11 @@
 								</div>
 							</td>
 							<td class="px-4 py-4 whitespace-nowrap">
+								<div class="text-sm font-medium text-gray-900">
+									{appointment.booking_source}
+								</div>
+							</td>
+							<td class="px-4 py-4 whitespace-nowrap">
 								<span
 									class="full inline-flex rounded px-3 py-1 text-xs leading-5 font-semibold {appointment.status ===
 									'Completed'
@@ -199,5 +209,8 @@
 				{/if}
 			</tbody>
 		</table>
+	</div>
+	<div>
+
 	</div>
 </div>

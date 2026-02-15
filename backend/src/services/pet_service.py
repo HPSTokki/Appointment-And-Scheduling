@@ -44,4 +44,10 @@ class PetService():
 
         return self.session.exec(stmt).all()
 
+    def get_pets_by_client_id(self, client_id: int) -> list[Pet]:
+        stmt = select(Pet).where(
+            Pet.client_id == client_id
+        )
+        return self.session.exec(stmt).all()
+
 
