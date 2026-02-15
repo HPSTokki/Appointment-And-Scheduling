@@ -33,12 +33,12 @@
 	}
 </script>
 
-<div class="space-y-3 rounded-lg border border-gray-200 bg-white p-4 shadow">
+<div class="space-y-3 rounded-lg border border-green-400 bg-white p-4 shadow">
 	<!-- Mode toggle -->
 	<div class="flex gap-2">
 		<button
 			onclick={() => (searchMode = 'date')}
-			class="rounded-lg px-4 py-2 transition-colors {searchMode === 'date'
+			class="rounded-lg px-4 py-1 transition-colors {searchMode === 'date'
 				? 'bg-green-500 text-white'
 				: 'bg-gray-100 text-gray-700 hover:bg-gray-200'}"
 		>
@@ -46,7 +46,7 @@
 		</button>
 		<button
 			onclick={() => (searchMode = 'name')}
-			class="rounded-lg px-4 py-2 transition-colors {searchMode === 'name'
+			class="rounded-lg px-4 py-1 transition-colors {searchMode === 'name'
 				? 'bg-green-500 text-white'
 				: 'bg-gray-100 text-gray-700 hover:bg-gray-200'}"
 		>
@@ -65,13 +65,13 @@
 		/>
 		<button
 			onclick={handleSearch}
-			class="rounded-lg bg-green-500 px-6 py-2 text-white transition-colors hover:bg-green-600"
+			class="rounded-lg bg-green-500 px-6 py-1 text-white transition-colors hover:bg-green-600"
 		>
 			Search
 		</button>
 		<button
 			onclick={handleReset}
-			class="rounded-lg bg-gray-200 px-6 py-2 text-gray-700 transition-colors hover:bg-gray-300"
+			class="rounded-lg bg-gray-200 px-6 py-1 text-gray-700 transition-colors hover:bg-gray-300"
 		>
 			Reset
 		</button>

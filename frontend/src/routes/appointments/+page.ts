@@ -9,6 +9,6 @@ export const load: PageLoad = async({fetch}) => {
     }
     const data: ListResponseAppointment = await response.json()
     return {
-        "appointments": data.appointments       
+        appointments: data.appointments       
     }
 }
